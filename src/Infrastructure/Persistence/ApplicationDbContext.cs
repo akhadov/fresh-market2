@@ -1,4 +1,5 @@
-﻿using FreshMarket.Domain.Categories;
+﻿using Domain.Blogs;
+using FreshMarket.Domain.Categories;
 using FreshMarket.Domain.Customers;
 using FreshMarket.Domain.Orders;
 using FreshMarket.Domain.Products;
@@ -25,6 +26,8 @@ public class ApplicationDbContext : DbContext
     public DbSet<Order> Orders { get; set; }
     public DbSet<OrderSummary> OrderSummaries { get; set; }
     public DbSet<LineItem> LineItems { get; set; }
+    public DbSet<BlogPost> BlogPosts { get; set; }
+    public DbSet<BlogPostComment> BlogPostComments { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

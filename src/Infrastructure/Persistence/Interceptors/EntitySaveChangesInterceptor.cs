@@ -1,6 +1,5 @@
 ﻿using Domain.Common.Interfaces;
 using FreshMarket.Application.Common.Interfaces;
-using FreshMarket.Domain.Common.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Diagnostics;
