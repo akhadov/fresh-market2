@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using FreshMarket.Domain.Orders;
+﻿using FreshMarket.Domain.Orders;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
