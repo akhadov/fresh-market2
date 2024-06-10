@@ -11,7 +11,7 @@ internal sealed class DeleteBlogPostRequestHandler(IRepository<BlogPost> reposit
 {
     public async Task Handle(DeleteBlogPostRequest request, CancellationToken cancellationToken)
     {
-        var blogPost = await repository.GetByIdAsync(request.BlogPostId, cancellationToken);
+        var blogPost = await repository.GetByIdAsync(new BlogPostId(request.BlogPostId), cancellationToken);
 
         await repository.DeleteAsync(blogPost, cancellationToken);
     }

@@ -35,33 +35,16 @@ public class BlogPost : AggregateRoot<BlogPostId>
             BodyOverview = bodyOverview
         };
 
-        blogPost.UpdateTitle(title);
-        blogPost.UpdateImagePath(imagePath);
-        blogPost.UpdateBody(body);
-        blogPost.UpdateBodyOverview(bodyOverview);
-
         blogPost.AddDomainEvent(BlogPostCreatedEvent.Create(blogPost));
 
         return blogPost;
     }
 
-    public void UpdateTitle(string title)
+    public void Update(string title, string imagePath, string body, string bodyOverview)
     {
         Title = title;
-    }
-
-    public void UpdateImagePath(string imagePath)
-    {
         ImagePath = imagePath;
-    }
-
-    public void UpdateBody(string body)
-    {
         Body = body;
-    }
-
-    public void UpdateBodyOverview(string bodyOverview)
-    {
         BodyOverview = bodyOverview;
     }
 }

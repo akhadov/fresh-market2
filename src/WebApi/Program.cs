@@ -4,6 +4,7 @@ using FreshMarket.WebApi;
 using FreshMarket.WebApi.Extensions;
 using FreshMarket.WebApi.Features;
 using FreshMarket.WebApi.Infrastructure;
+using WebApi.Features;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -44,6 +45,7 @@ app.MapCategoryEndpoints();
 app.MapCustomerEndpoints();
 app.MapProductEndpoints();
 app.MapOrderEndpoints();
+app.MapBlogPostEndpoints();
 
 app.Run();
 
