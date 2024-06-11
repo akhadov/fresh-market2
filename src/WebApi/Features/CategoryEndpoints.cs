@@ -1,4 +1,5 @@
-﻿using FreshMarket.Application.Categories.Commands.Create;
+﻿using Application.Categories.Queries;
+using FreshMarket.Application.Categories.Commands.Create;
 using FreshMarket.Application.Categories.Commands.Delete;
 using FreshMarket.Application.Categories.Commands.Update;
 using FreshMarket.WebApi.Extensions;
@@ -14,6 +15,16 @@ public static class CategoryEndpoints
             .MapGroup("categories")
             .WithTags("categories")
             .WithOpenApi();
+
+        group
+            .MapGet("/{categoryId:guid}", async (ISender sender, Guid categoryId, CancellationToken ct) =>
+            {
+                var query = new GetCategoryQuery(categoryId);
+                var category = await sender.Send(query, ct);
+                return Results.Ok(category);
+            })
+            .WithName("GetCategory")
+            .Produces<CategoryResponse>();
 
         //group
         //    .MapGet("/", (ISender sender, CancellationToken ct)
