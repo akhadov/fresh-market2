@@ -1,6 +1,7 @@
 ﻿using Application.Blogs.Commands.CreateBlogPost;
 using Application.Blogs.Commands.DeleteBlogPost;
 using Application.Blogs.Commands.UpdateBlogPost;
+using Application.Blogs.Queries;
 using FreshMarket.WebApi.Extensions;
 using MediatR;
 
@@ -14,6 +15,16 @@ public static class BlogPostEndpoints
             .MapGroup("blogPosts")
             .WithTags("blogPosts")
             .WithOpenApi();
+
+        group
+            .MapGet("/{blogPostId:guid}", async (ISender sender, Guid blogPostId, CancellationToken ct) =>
+            {
+                var query = new GetBlogPostQuery(blogPostId);
+                var blogPost = await sender.Send(query, ct);
+                return Results.Ok(blogPost);
+            })
+            .WithName("GetBlogPost")
+            .Produces<BlogPostResponse>();
 
         //group
         //    .MapGet("/", (ISender sender, CancellationToken ct)

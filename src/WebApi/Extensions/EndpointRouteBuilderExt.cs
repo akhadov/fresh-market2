@@ -1,4 +1,6 @@
-﻿namespace FreshMarket.WebApi.Extensions;
+﻿using Application.Common.Models;
+
+namespace FreshMarket.WebApi.Extensions;
 
 public static class EndpointRouteBuilderExt
 {

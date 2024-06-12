@@ -1,10 +1,10 @@
-﻿using Application.Products.Queries;
+﻿using Application.Common.Models;
+using Application.Products.Queries;
 using FreshMarket.Application.Products.Commands.Create;
 using FreshMarket.Application.Products.Commands.Delete;
 using FreshMarket.Application.Products.Commands.Update;
 using FreshMarket.WebApi.Extensions;
 using MediatR;
-
 namespace FreshMarket.WebApi.Features;
 
 public static class ProductEndpoints
@@ -24,13 +24,23 @@ public static class ProductEndpoints
                 return Results.Ok(product);
             })
             .WithName("GetProduct")
-            .Produces<ProductResponse>();
+            .ProducesGet<ProductResponse>();
+
+        group
+            .MapGet("/", async (int page, int pageSize, ISender sender, CancellationToken ct) =>
+            {
+                var query = new GetProductsQuery(page, pageSize);
+                PagedList<ProductResponse> result = await sender.Send(query, ct);
+                return Results.Ok(result);
+            })
+            .WithName("GetProducts")
+            .ProducesGet<PagedList<ProductResponse>>();
 
         //group
-        //    .MapGet("/", (ISender sender, CancellationToken ct)
-        //        => sender.Send(new GetAllTodoItemsQuery(), ct))
-        //    .WithName("GetTodoItems")
-        //    .ProducesGet<TodoItemDto[]>();
+        //    .MapGet("/", (int page, int pageSize, ISender sender, CancellationToken ct)
+        //        => sender.Send(new GetProductsQuery(page, pageSize), ct))
+        //    .WithName("GetProducts")
+        //    .ProducesGet<PagedList<ProductResponse>>();
 
         group
             .MapPost("/", (ISender sender, CreateProductRequest request, CancellationToken ct) => sender.Send(request, ct))
