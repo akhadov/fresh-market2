@@ -1,6 +1,5 @@
 ﻿using Application.Common.Models;
 using Application.Products.Queries;
-using FreshMarket.Domain.Products;
 using FreshMarket.Infrastructure.Persistence;
 using MediatR;
 
