@@ -13,7 +13,7 @@ public static class CategoryEndpoints
     {
         var group = app
             .MapGroup("categories")
-            .WithTags("categories")
+            .WithTags("Categories")
             .WithOpenApi();
 
         group

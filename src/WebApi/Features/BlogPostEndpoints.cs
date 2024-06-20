@@ -13,7 +13,7 @@ public static class BlogPostEndpoints
     {
         var group = app
             .MapGroup("blogPosts")
-            .WithTags("blogPosts")
+            .WithTags("BlogPosts")
             .WithOpenApi();
 
         group

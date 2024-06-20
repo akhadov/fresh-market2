@@ -1,6 +1,4 @@
-﻿using FreshMarket.Domain.Customers;
-
-namespace Application.Blogs.Queries;
+﻿namespace Application.Blogs.Queries;
 
 public record BlogPostResponse
 {

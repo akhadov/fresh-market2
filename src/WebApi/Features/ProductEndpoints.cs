@@ -13,7 +13,7 @@ public static class ProductEndpoints
     {
         var group = app
             .MapGroup("products")
-            .WithTags("products")
+            .WithTags("Products")
             .WithOpenApi();
 
         group
@@ -35,12 +35,6 @@ public static class ProductEndpoints
             })
             .WithName("GetProducts")
             .ProducesGet<PagedList<ProductResponse>>();
-
-        //group
-        //    .MapGet("/", (int page, int pageSize, ISender sender, CancellationToken ct)
-        //        => sender.Send(new GetProductsQuery(page, pageSize), ct))
-        //    .WithName("GetProducts")
-        //    .ProducesGet<PagedList<ProductResponse>>();
 
         group
             .MapPost("/", (ISender sender, CreateProductRequest request, CancellationToken ct) => sender.Send(request, ct))

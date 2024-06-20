@@ -1,11 +1,14 @@
-﻿using FreshMarket.Application.Common.Interfaces;
+﻿using Ardalis.GuardClauses;
+using FreshMarket.Application.Common.Interfaces;
 using FreshMarket.Domain.Common.Interfaces;
 using FreshMarket.Infrastructure.Persistence;
 using FreshMarket.Infrastructure.Persistence.Interceptors;
 using FreshMarket.Infrastructure.Persistence.Repository;
+using Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Npgsql;
 
 namespace FreshMarket.Infrastructure;
 
@@ -13,15 +16,23 @@ public static class DependencyInjection
 {
     public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration config)
     {
+        services.AddMediatR(config =>
+            config.RegisterServicesFromAssembly(typeof(DependencyInjection).Assembly));
+
         services.AddScoped<EntitySaveChangesInterceptor>();
         services.AddScoped<DispatchDomainEventsInterceptor>();
 
-        services.AddDbContext<ApplicationDbContext>(options =>
-            options.UseNpgsql(config.GetConnectionString("DefaultConnection"), builder =>
-            {
-                builder.MigrationsAssembly(typeof(DependencyInjection).Assembly.FullName);
-                builder.EnableRetryOnFailure();
-            }));
+        string? connectionString = config.GetConnectionString("Database");
+        Guard.Against.NullOrEmpty(connectionString);
+
+        services.AddSingleton(_ =>
+            new DbConnectionFactory(new NpgsqlDataSourceBuilder(connectionString).Build()));
+
+        services.AddDbContext<ApplicationDbContext>(
+            options => options
+                .UseNpgsql(connectionString)
+                .UseSnakeCaseNamingConvention()
+                .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking));
 
         //services.AddScoped<ApplicationDbContextInitializer>();
 
