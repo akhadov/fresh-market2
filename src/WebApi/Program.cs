@@ -1,15 +1,25 @@
 using FreshMarket.Application;
 using FreshMarket.Infrastructure;
+using FreshMarket.Infrastructure.Persistence;
 using FreshMarket.WebApi;
 using FreshMarket.WebApi.Extensions;
 using FreshMarket.WebApi.Features;
 using FreshMarket.WebApi.Infrastructure;
+using Infrastructure.Identity;
+using Microsoft.AspNetCore.Identity;
 using WebApi.Features;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddAuthorization();
+builder.Services.AddAuthentication().AddCookie(IdentityConstants.ApplicationScheme);
+
+builder.Services.AddIdentityCore<User>()
+    .AddEntityFrameworkStores<ApplicationDbContext>()
+    .AddApiEndpoints();
 
 builder.Services.AddWebApi(builder.Configuration);
 builder.Services.AddApplication();
@@ -42,6 +52,7 @@ app.UseExceptionHandler();
 
 app.UseRouting();
 
+app.MapIdentityApi<User>();
 app.MapCategoryEndpoints();
 app.MapCustomerEndpoints();
 app.MapProductEndpoints();

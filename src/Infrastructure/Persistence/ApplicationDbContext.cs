@@ -4,11 +4,14 @@ using FreshMarket.Domain.Customers;
 using FreshMarket.Domain.Orders;
 using FreshMarket.Domain.Products;
 using FreshMarket.Infrastructure.Persistence.Interceptors;
+using Infrastructure.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+
 
 namespace FreshMarket.Infrastructure.Persistence;
 
-public class ApplicationDbContext : DbContext
+public class ApplicationDbContext : IdentityDbContext<User>
 {
     private readonly EntitySaveChangesInterceptor saveChangesInterceptor;
     private readonly DispatchDomainEventsInterceptor dispatchDomainEventsInterceptor;
@@ -31,7 +34,12 @@ public class ApplicationDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        base.OnModelCreating(modelBuilder);
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(ApplicationDbContext).Assembly);
+
+        modelBuilder.Entity<User>().Property(u => u.Initials).HasMaxLength(5);
+
+        modelBuilder.HasDefaultSchema("identity");
     }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
