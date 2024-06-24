@@ -4,7 +4,7 @@
     - [Overview](#overview)
     - [✨ Features](#-features)
     - [Getting Started](#getting-started)
-        - [Running the Solution](#running-the-solution)
+    - [Running the Solution](#running-the-solution)
 <!-- TOC -->
 
 ## Overview
