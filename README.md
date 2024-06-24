@@ -1,6 +1,6 @@
 # FreshMarket E-Commerce Application
 <!-- TOC -->
-- [SSW Clean Architecture Template](#ssw-clean-architecture-template)
+- [Fresh Market](#freshMarket-e-commerce-application)
     - [Overview](#overview)
     - [✨ Features](#-features)
     - [Getting Started](#getting-started)
@@ -28,58 +28,24 @@ FreshMarket was designed to solve the most important business challenges from th
 
 ## Getting Started
 
-### Installation
+The following prerequisites are required to build and run the solution:
 
-1. Install the SSW CA template
+- [.NET 8.0 SDK](https://dotnet.microsoft.com/download/dotnet/8.0) (latest version)
 
+Clone the repository to get start [fresh-market2](https://github.com/akhadov/fresh-market2):
+```
+git clone https://github.com/akhadov/fresh-market2.git
+```
+Restore the project at the root directory:
 ```bash
-dotnet new install FreshMarket.Template
+dotnet restore
+```
+Next, build the solution by running:
+```bash
+dotnet build
 ```
 
-> NOTE: The template only needs to be installed once. Running this command again will update your version of the template.
-
-2. Create a new directory
-
-```bash
-mkdir Northwind365
-cd Northwind365
-```
-
-3. Create a new solution
-
-```bash
-dotnet new ssw-ca
-```
-
-> NOTE: `name` is optional; if you don't specify it, the directory name will be used as the solution name and project namespaces.
-
-Alternatively, you can specify the `name` and `output` directory as follows:
-
-```bash
-dotnet new ssw-ca --name {{SolutionName}} --output .\
-```
-
-### Adding a Feature
-
-1. Create a query
-
-```bash
-cd src/Application/Features
-mkdir {{FeatureName}}
-cd {{FeatureName}}
-dotnet new ssw-ca-query --name {{QueryName}} --entityName {{Entity}} --slnName {{SolutionName}}
-```
-
-2. Create a command
-
-```bash
-cd src/Application/Features
-mkdir {{FeatureName}}
-cd {{FeatureName}}
-dotnet new ssw-ca-command --name {{CommandName}} --entityName {{Entity}} --slnName {{SolutionName}}
-```
-
-### Running the Solution
+## Running the Solution
 
 1. Start dockerized PostgreSQL Server
 
@@ -92,11 +58,4 @@ docker compose up
 ```bash
 dotnet run
 ```
-
-> **NOTE:** The first time you run the solution, it may take a while to download the docker images, create the DB, and seed the data.
-
-
-You should be able to make requests to localhost:5001 for the Public API project once these commands complete. If you have any problems, especially with login, try from a new guest or incognito browser instance.
-
-You can also run the applications by using the instructions located in their `Dockerfile` file in the root of each project. Again, run these commands from the root of the solution (where the .sln file is located).
 
